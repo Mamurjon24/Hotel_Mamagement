@@ -1,6 +1,5 @@
 package org.example.repository;
 
-import org.example.entity.ApplicationEntity;
 import org.example.entity.BookingEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

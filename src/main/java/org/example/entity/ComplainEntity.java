@@ -1,9 +1,8 @@
 package org.example.entity;
-
 import lombok.*;
+import org.example.enums.ComplainStatus;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -11,14 +10,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name ="cleaning_entity")
-public class CleaningRoomEntity {
+@Table(name ="complain_entity")
+public class ComplainEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer employerId;
-    private Integer roomId;
-    private LocalDate cleanTime;
+    private Integer employarId;
+    private Integer guestId;
+    private String complainText;
+    private ComplainStatus complainStatus;
 
 
 

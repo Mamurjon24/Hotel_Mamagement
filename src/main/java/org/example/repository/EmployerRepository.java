@@ -19,4 +19,8 @@ public class EmployerRepository {
         transaction.commit();
         session.close();
     }
+
+    public EmployerEntity getEmployerByPhone(String phone) {
+        return null;
+    }
 }
