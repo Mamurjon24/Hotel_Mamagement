@@ -11,13 +11,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name ="cleaning_entity")
+@Table(name ="cleaning_room")
 public class CleaningRoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer employerId;
-    private Integer roomId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employer_id")
+    private EmployerEntity employer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private RoomEntity room;
+    @Column(name = "clean_time")
     private LocalDate cleanTime;
 
 

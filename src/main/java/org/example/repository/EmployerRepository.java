@@ -5,6 +5,7 @@ import org.example.entity.EmployerEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,11 @@ public class EmployerRepository {
     }
 
     public EmployerEntity getEmployerByPhone(String phone) {
-        return null;
+        Session session = sessionFactory.openSession();
+        Query<EmployerEntity> query = session.createQuery(" FROM EmployerEntity as e where phone =:phone", EmployerEntity.class);
+        query.setParameter("phone", phone);
+        EmployerEntity employer = query.getSingleResult();
+        session.close();
+        return employer;
     }
 }

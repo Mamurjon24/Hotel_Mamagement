@@ -11,10 +11,18 @@
         <property name="show_sql">true</property>
 
         <!-- MAPPINGS -->
-<!--        <mapping class="org.example.entity.BookEntity"/>-->
-<!--        <mapping class="org.example.entity.StudentEntity"/>-->
-<!--        <mapping class="org.example.entity.AddressEntity"/>-->
-        <!--        <mapping class="org.example.entity.StudentBookEntity"/>-->
+        <mapping class="org.example.entity.BookingEntity"/>
+        <mapping class="org.example.entity.CleaningRoomEntity"/>
+        <mapping class="org.example.entity.ComplainEntity"/>
+        <mapping class="org.example.entity.EmployerEntity"/>
+        <mapping class="org.example.entity.EmployerWorkTable"/>
+        <mapping class="org.example.entity.EmployerTypeEntity"/>
+        <mapping class="org.example.entity.ExtraAmenitiesEntity"/>
+        <mapping class="org.example.entity.GuestEntity"/>
+        <mapping class="org.example.entity.GuestPasswordEntity"/>
+        <mapping class="org.example.entity.OutComeEntity"/>
+        <mapping class="org.example.entity.RoomEntity"/>
+
     </session-factory>
 
 </hibernate-configuration>

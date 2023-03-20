@@ -1,6 +1,8 @@
 package org.example.controller;
 
+import org.example.repository.RoomRepository;
 import org.example.service.EmployerService;
+import org.example.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -12,6 +14,8 @@ public class EmployerController {
     Scanner strScanner = new Scanner(System.in);
     @Autowired
     private EmployerService employerService;
+    @Autowired
+    private RoomService roomService;
 
     public void manu() {
         while (true) {
@@ -91,15 +95,28 @@ public class EmployerController {
     }
 
     private void addroom() {
-
+        System.out.print("Enter Number of Room : ");
+        Integer number = intScanner.nextInt();
+        System.out.print("Enter Folder of Room : ");
+        Integer floor = intScanner.nextInt();
+        System.out.println("ORDENARY_ROOM, LUXURY_ROOM, DOUBLE_ROOM, FAMILY_ROOM, PRESIDENTIAL_ROOM");
+        System.out.print("Choose Type of Room : ");
+        String typeofRoom = strScanner.nextLine();
+        System.out.print("Enter Price of Room : ");
+        Double price = intScanner.nextDouble();
+        System.out.print("Enter Area of Room : ");
+        Float area = intScanner.nextFloat();
+        roomService.addRoom(number,floor,typeofRoom,price,area);
     }
 
     private void roomList() {
-
+       roomService.roomList();
     }
 
     private void deleteRoom() {
-
+        System.out.println("Enter Id Room");
+        Integer roomId = intScanner.nextInt();
+        roomService.changeStatus(roomId);
     }
 
     private void updateRoom() {

@@ -10,15 +10,20 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "guest_entity")
+@Table(name = "guest")
 public class GuestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String name;
+    @Column
     private String surName;
+    @Column
     private String phone;
-    private Integer passwordNumberId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "guest_entity")
+    private GuestPasswordEntity gusetPasswordEntity;
 
 
 

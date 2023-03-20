@@ -3,7 +3,6 @@ package org.example.service;
 import org.example.container.ComponentContainer;
 import org.example.controller.EmployerController;
 import org.example.entity.EmployerEntity;
-import org.example.enums.Employer_Type;
 import org.example.enums.Status;
 import org.example.repository.EmployerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,12 @@ public class AuthService {
             return;
         }
         ComponentContainer.currentEmployer = employer;
-        if (employer.getEmployerType().equals(Employer_Type.ADMIN)) {
-            employerController.manu();
-        }
+//        if (employer.getEmployerType().equals(Employer_Type.ADMIN)) {
+//        }
+        employerController.manu();
 
     }
+
     public void complain(String phone) {
         EmployerEntity employer = employerRepository.getEmployerByPhone(phone);
         if (employer == null) {
@@ -43,9 +43,9 @@ public class AuthService {
             return;
         }
         ComponentContainer.currentEmployer = employer;
-        if (employer.getEmployerType().equals(Employer_Type.ADMIN)) {
-            employerController.manu();
-        }
+//        if (employer.getEmployerType().equals(Employer_Type.ADMIN)) {
+//        }
+        employerController.manu();
 
     }
 

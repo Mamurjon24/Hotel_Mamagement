@@ -3,7 +3,6 @@ package org.example.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -11,17 +10,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name ="out_come")
-public class OutComeEntity {
+@Table(name ="employer_worktable")
+public class EmployerWorkTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column
-    private String reason;
-    @Column(name = "pay_date")
-    private LocalDate payDate;
-    @Column
-    private Double amount;
-
+    @Column(name = "name_work_table")
+    private String nameWorkTable;
+    @Column(name = "in_hours")
+    private String inHours;
 
 }
