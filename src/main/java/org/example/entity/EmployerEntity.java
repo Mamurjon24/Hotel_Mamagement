@@ -33,6 +33,6 @@ public class EmployerEntity {
     private EmployerTypeEntity employerType;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employer_worktable_id")
-    private EmployerWorkTable employerWorkTable;
+    private EmployerWorkTableEntity employerWorkTableEntity;
 
 }

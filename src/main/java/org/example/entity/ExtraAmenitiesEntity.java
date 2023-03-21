@@ -17,7 +17,5 @@ public class ExtraAmenitiesEntity {
     private Integer id;
     @Column(name = "extra_amenities_name")
     private String ExtraAmenitiesName;
-    @Column
-    private Double price;
 
 }

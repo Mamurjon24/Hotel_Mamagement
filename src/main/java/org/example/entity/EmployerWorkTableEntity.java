@@ -11,7 +11,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name ="employer_worktable")
-public class EmployerWorkTable {
+public class EmployerWorkTableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

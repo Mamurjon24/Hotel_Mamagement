@@ -49,4 +49,34 @@ public class RoomService {
         }
       roomRepository.changeStatus(room.getId());
     }
+
+    public void updateRoom(Integer roomId, Integer number, Integer floor, String typeofRoom, Double price, Float area) {
+        RoomEntity room1 = roomRepository.getById(roomId);
+        if (room1 == null){
+            System.out.println("Room is not Found");
+        }
+        String upTypeRoom = typeofRoom.toUpperCase();
+        if (upTypeRoom.equals(RoomType.DOUBLE_ROOM) || upTypeRoom.equals(RoomType.FAMILY_ROOM) || upTypeRoom.equals(RoomType.LUXURY_ROOM)
+                || upTypeRoom.equals(RoomType.ORDENARY_ROOM) || upTypeRoom.equals(RoomType.PRESIDENTIAL_ROOM) ){
+            System.out.println("Type Is not tog'ri");
+            return;
+        }
+        RoomEntity room = new RoomEntity();
+        room.setId(roomId);
+        room.setNumber(number);
+        room.setFloorNumber(floor);
+        room.setRoomType(RoomType.valueOf(upTypeRoom));
+        room.setPrice(price);
+        room.setArea(area);
+        room.setStatus(Status.valueOf(String.valueOf(Status.ACTIVE)));
+        roomRepository.updateRoom(room);
+    }
+
+    public void findRoom(Integer roomId) {
+        RoomEntity room = roomRepository.getById(roomId);
+        if (room == null){
+            System.out.println("Room is not Found");
+        }
+        System.out.println(room);
+    }
 }

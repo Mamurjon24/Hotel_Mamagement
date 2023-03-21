@@ -1,8 +1,6 @@
 package org.example.controller;
 
-import org.example.repository.RoomRepository;
-import org.example.service.EmployerService;
-import org.example.service.RoomService;
+import org.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -16,6 +14,12 @@ public class EmployerController {
     private EmployerService employerService;
     @Autowired
     private RoomService roomService;
+    @Autowired
+    private ExtraAmenitiesServive extraAmenitiesServive;
+    @Autowired
+    private EmployerTypeService employerTypeService;
+    @Autowired
+    private EmployerWorkTableService employerWorkTableService;
 
     public void manu() {
         while (true) {
@@ -50,6 +54,9 @@ public class EmployerController {
                 }
                 case 9 -> {
                     complains();
+                }
+                case 10 -> {
+                    employerWorkTable();
                 }
             }
         }
@@ -106,24 +113,41 @@ public class EmployerController {
         Double price = intScanner.nextDouble();
         System.out.print("Enter Area of Room : ");
         Float area = intScanner.nextFloat();
-        roomService.addRoom(number,floor,typeofRoom,price,area);
+        roomService.addRoom(number, floor, typeofRoom, price, area);
     }
 
     private void roomList() {
-       roomService.roomList();
+        roomService.roomList();
     }
 
     private void deleteRoom() {
-        System.out.println("Enter Id Room");
+        System.out.print("Enter Id Room");
         Integer roomId = intScanner.nextInt();
         roomService.changeStatus(roomId);
     }
 
     private void updateRoom() {
+        System.out.print("Enter Id Room : ");
+        Integer roomId = intScanner.nextInt();
+        System.out.print("Enter Number of Room : ");
+        Integer number = intScanner.nextInt();
+        System.out.print("Enter Folder of Room : ");
+        Integer floor = intScanner.nextInt();
+        System.out.println("ORDENARY_ROOM, LUXURY_ROOM, DOUBLE_ROOM, FAMILY_ROOM, PRESIDENTIAL_ROOM");
+        System.out.print("Choose Type of Room : ");
+        String typeofRoom = strScanner.nextLine();
+        System.out.print("Enter Price of Room : ");
+        Double price = intScanner.nextDouble();
+        System.out.print("Enter Area of Room : ");
+        Float area = intScanner.nextFloat();
+        roomService.updateRoom(roomId, number, floor, typeofRoom, price, area);
 
     }
 
     private void findRoom() {
+        System.out.print("Enter Id of Room");
+        Integer roomId = intScanner.nextInt();
+        roomService.findRoom(roomId);
 
     }
 
@@ -149,32 +173,36 @@ public class EmployerController {
                     addconvenient();
                 }
                 case 2 -> {
-                    listConvenientt();
+                    listConvenient();
                 }
                 case 3 -> {
-                    deleteconvenient();
+                    deleteConvenient();
                 }
             }
         }
     }
 
     private void addconvenient() {
-
+        System.out.println("Enter Name Convenient");
+        String convenientName = strScanner.nextLine();
+        extraAmenitiesServive.addconvenient(convenientName);
     }
 
-    private void listConvenientt() {
-
+    private void listConvenient() {
+        extraAmenitiesServive.convenientList();
     }
 
-    private void deleteconvenient() {
-
+    private void deleteConvenient() {
+        System.out.print("Enter ID Convenient : ");
+        Integer convenientId = intScanner.nextInt();
+        extraAmenitiesServive.deleteConvenient(convenientId);
     }
 
     String employerTypeManu = """
             0. -> Exit
-            1. -> Add Emploter Type
+            1. -> Add Employer Type
             2. -> List
-            3. -> Delete Emploter Type
+            3. -> Delete Employer Type
             """;
 
     private void employerType() {
@@ -191,22 +219,26 @@ public class EmployerController {
                     employerTypeList();
                 }
                 case 3 -> {
-                    deletEmployerType();
+                    deleteEmployerType();
                 }
             }
         }
     }
 
-    private void deletEmployerType() {
-
+    private void addEmployerType() {
+        System.out.println("Enter New EmployerType ");
+        String newEmployerType = strScanner.nextLine();
+        employerTypeService.addNewEmployerType(newEmployerType);
     }
 
     private void employerTypeList() {
-
+        employerTypeService.employerTypeList();
     }
 
-    private void addEmployerType() {
-
+    private void deleteEmployerType() {
+        System.out.print("Enter ID Employer Type : ");
+        Integer employerTypeId = intScanner.nextInt();
+        employerTypeService.deleteEmployerType(employerTypeId);
     }
 
     String employerManu = """
@@ -237,15 +269,31 @@ public class EmployerController {
     }
 
     private void addEmployer() {
-
+        System.out.println("Enter Birth Date of Employer yyyy-MM-dd");
+        String bithDate = strScanner.nextLine();
+        System.out.print("Enter Name of Employer : ");
+        String name = strScanner.nextLine();
+        System.out.print("Enter Surname of Employer : ");
+        String surName = strScanner.nextLine();
+        System.out.print("Enter Phone of Employer : ");
+        String phone = strScanner.nextLine();
+        employerTypeService.employerTypeList();
+        System.out.print("Enter Employer Type Id : ");
+        Integer employerTypeId = intScanner.nextInt();
+        employerWorkTableService.workTableList();
+        System.out.print("Enter Employer Smena Id : ");
+        Integer employerWorkTableId = intScanner.nextInt();
+        employerService.addEmployer(bithDate, name, phone, surName, employerTypeId, employerWorkTableId);
     }
 
     private void employerList() {
-
+        employerService.getEmployerList();
     }
 
     private void deleteEmployer() {
-
+        System.out.print("Enter Employer Id : ");
+        Integer employerId = intScanner.nextInt();
+        employerService.changeStatus(employerId);
     }
 
 
@@ -294,6 +342,7 @@ public class EmployerController {
             3. -> List By Room
             4. -> List By Guest
             """;
+
     private void booking() {
         while (true) {
             System.out.println(bookingManu);
@@ -316,6 +365,7 @@ public class EmployerController {
             }
         }
     }
+
     private void makeBooking() {
 
     }
@@ -331,6 +381,7 @@ public class EmployerController {
     private void listByGuest() {
 
     }
+
     String mainMenu = """
             0. -> Exit
             1. -> Room
@@ -341,8 +392,10 @@ public class EmployerController {
             6. -> Booking                                                    
             7. -> OutCome                                                    
             8. -> Cleaning Room                                                    
-            9. -> Complains                                                    
+            9. -> Complains 
+            10.-> Employer Work Table                                                   
             """;
+
     private void outCome() {
 
     }
@@ -354,6 +407,52 @@ public class EmployerController {
     private void complains() {
 
     }
+
+    String employerWorkTableManu = """
+            0. -> Exit
+            1. -> Add Employer Work Table
+            2. -> List
+            3. -> Employer Work Table
+            """;
+
+    private void employerWorkTable() {
+        while (true) {
+            System.out.println(employerWorkTableManu);
+            switch (intScanner.nextInt()) {
+                case 0 -> {
+                    return;
+                }
+                case 1 -> {
+                    addEmployerWorkTable();
+                }
+                case 2 -> {
+                    employerWorkTableList();
+                }
+                case 3 -> {
+                    deleteEmployerWorkTable();
+                }
+            }
+        }
+    }
+
+    private void addEmployerWorkTable() {
+        System.out.print("Enter Work Hours : ");
+        String workHours = strScanner.nextLine();
+        System.out.print("Enter Work Status : ");
+        String workStatus = strScanner.nextLine();
+        employerWorkTableService.addWorkTable(workHours, workStatus);
+    }
+
+    private void employerWorkTableList() {
+        employerWorkTableService.workTableList();
+    }
+
+    private void deleteEmployerWorkTable() {
+        System.out.print("Enter ID Employer Work Table Id : ");
+        Integer employerWorkTable = intScanner.nextInt();
+        employerWorkTableService.deleteEmployerWorkTable(employerWorkTable);
+    }
+
 
 }
 

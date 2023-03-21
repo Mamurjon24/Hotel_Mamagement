@@ -51,4 +51,22 @@ public class RoomRepository {
         session.close();
         System.out.println("Rows affected: " + result);
     }
+
+    public void updateRoom(RoomEntity room) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("UPDATE RoomEntity set area = :area , status = :status  , price = :price ," +
+                " number =:number , floorNumber = :floorNumber ,roomType = :roontype " + "WHERE id = :room_id");
+        query.setParameter("status", Status.ACTIVE);
+        query.setParameter("area", room.getArea());
+        query.setParameter("room_id", room.getId());
+        query.setParameter("price", room.getPrice());
+        query.setParameter("number", room.getNumber());
+        query.setParameter("floorNumber", room.getFloorNumber());
+        query.setParameter("roontype", room.getRoomType());
+        int result = query.executeUpdate();
+        tx.commit();
+        session.close();
+        System.out.println("Rows affected: " + result);
+    }
 }

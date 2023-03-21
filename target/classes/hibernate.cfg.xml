@@ -15,7 +15,7 @@
         <mapping class="org.example.entity.CleaningRoomEntity"/>
         <mapping class="org.example.entity.ComplainEntity"/>
         <mapping class="org.example.entity.EmployerEntity"/>
-        <mapping class="org.example.entity.EmployerWorkTable"/>
+        <mapping class="org.example.entity.EmployerWorkTableEntity"/>
         <mapping class="org.example.entity.EmployerTypeEntity"/>
         <mapping class="org.example.entity.ExtraAmenitiesEntity"/>
         <mapping class="org.example.entity.GuestEntity"/>
