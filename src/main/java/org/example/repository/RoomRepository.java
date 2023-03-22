@@ -24,7 +24,7 @@ public class RoomRepository {
         session.close();
     }
 
-    public RoomEntity getById(int id) {
+    public RoomEntity getRoomById(int id) {
         Session session = sessionFactory.openSession();
         RoomEntity room = session.find(RoomEntity.class, id);
         session.close();

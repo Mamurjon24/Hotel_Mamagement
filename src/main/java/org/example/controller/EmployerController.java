@@ -20,6 +20,12 @@ public class EmployerController {
     private EmployerTypeService employerTypeService;
     @Autowired
     private EmployerWorkTableService employerWorkTableService;
+    @Autowired
+    private GuestPasswordService guestPasswordService;
+    @Autowired
+    private GuestService guestService;
+    @Autowired
+    private BookingService bookingService;
 
     public void manu() {
         while (true) {
@@ -316,23 +322,31 @@ public class EmployerController {
                 case 2 -> {
                     guestList();
                 }
-                case 3 -> {
-                    deleteGuest();
-                }
             }
         }
     }
 
     private void addGuest() {
-
+        System.out.print("Enter Name of Guest : ");
+        String name = strScanner.nextLine();
+        System.out.print("Enter Surname of Guest : ");
+        String surName = strScanner.nextLine();
+        System.out.print("Enter Phone of Guest : ");
+        String phone = strScanner.nextLine();
+        System.out.print("Enter passwordNum of Guest : ");
+        String passwordNum = strScanner.nextLine();
+        System.out.println("Enter Given Date of Guest Password yyyy-MM-dd");
+        String givenDate = strScanner.nextLine();
+        System.out.println("Enter Expired Date of Guest Password yyyy-MM-dd");
+        String expiredDate = strScanner.nextLine();
+        System.out.print("Enter Given Address of Guest Password : ");
+        String givenAddress = strScanner.nextLine();
+        guestPasswordService.addGuestPassword(passwordNum, givenDate, givenAddress, expiredDate);
+        guestService.addGuest(passwordNum, name, surName, phone);
     }
 
     private void guestList() {
-
-    }
-
-    private void deleteGuest() {
-
+        guestService.getguestList();
     }
 
     String bookingManu = """
@@ -367,7 +381,17 @@ public class EmployerController {
     }
 
     private void makeBooking() {
-
+        System.out.print("Enter Guest Id : ");
+        Integer guestId = intScanner.nextInt();
+        System.out.print("Enter Room Id : ");
+        Integer roomId = intScanner.nextInt();
+        System.out.println("Enter Booking Date yyyy-MM-dd");
+        String beginDate = strScanner.nextLine();
+        System.out.print("Enter Booking Day : ");
+        Integer howLong = intScanner.nextInt();
+        System.out.print("Enter Prise : ");
+        Double prise = intScanner.nextDouble();
+        bookingService.addBooking(guestId,roomId,beginDate,howLong,prise);
     }
 
     private void bookingList() {

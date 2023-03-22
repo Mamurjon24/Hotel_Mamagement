@@ -22,8 +22,8 @@ public class GuestEntity {
     @Column
     private String phone;
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "guest_entity")
-    private GuestPasswordEntity gusetPasswordEntity;
+    @JoinColumn(name = "guest_password")
+    private GuestPasswordEntity gusetPassword;
 
 
 

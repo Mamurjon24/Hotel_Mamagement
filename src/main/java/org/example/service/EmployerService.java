@@ -4,6 +4,7 @@ import org.example.entity.EmployerEntity;
 import org.example.entity.EmployerTypeEntity;
 import org.example.entity.EmployerWorkTableEntity;
 import org.example.entity.RoomEntity;
+import org.example.enums.Status;
 import org.example.repository.EmployerRepository;
 import org.example.repository.EmployerTypeRepository;
 import org.example.repository.EmployerWorkTableRepository;
@@ -27,7 +28,8 @@ public class EmployerService {
         employer.setBithDate(LocalDate.parse(bithDate));
         employer.setName(name);
         employer.setSurName(surName);
-        EmployerEntity employer1 = employerRepository.getEmployerByPhone(phone);
+        employer.setStatus(Status.ACTIVE);
+        Object employer1 = employerRepository.getEmployerByPhone(phone);
         if (employer1 != null){
             System.err.println("Wrong phone");
             return;
@@ -58,7 +60,7 @@ public class EmployerService {
     }
 
     public void changeStatus(Integer employerId) {
-        EmployerEntity employer = employerRepository.getById(employerId);
+        EmployerEntity employer = employerRepository.getEmployerById(employerId);
         if (employer == null){
             System.out.println("Room is not Found");
         }

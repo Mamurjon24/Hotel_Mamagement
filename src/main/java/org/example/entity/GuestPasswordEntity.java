@@ -20,10 +20,8 @@ public class GuestPasswordEntity {
     private String serialNumber;
     @Column(name = "given_date")
     private LocalDate givenDate;
-    @Column(name = "end_date")
-    private LocalDate endDate;
-    @Column(name = "given_from")
-    private String givenFrom;
+    @Column(name = "expired_date")
+    private LocalDate expiredFrom;
     @Column(name = "given_address")
     private String givenAddress;
 

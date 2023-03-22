@@ -43,7 +43,7 @@ public class RoomService {
     }
 
     public void changeStatus(Integer id) {
-        RoomEntity room = roomRepository.getById(id);
+        RoomEntity room = roomRepository.getRoomById(id);
         if (room == null){
             System.out.println("Room is not Found");
         }
@@ -51,7 +51,7 @@ public class RoomService {
     }
 
     public void updateRoom(Integer roomId, Integer number, Integer floor, String typeofRoom, Double price, Float area) {
-        RoomEntity room1 = roomRepository.getById(roomId);
+        RoomEntity room1 = roomRepository.getRoomById(roomId);
         if (room1 == null){
             System.out.println("Room is not Found");
         }
@@ -73,7 +73,7 @@ public class RoomService {
     }
 
     public void findRoom(Integer roomId) {
-        RoomEntity room = roomRepository.getById(roomId);
+        RoomEntity room = roomRepository.getRoomById(roomId);
         if (room == null){
             System.out.println("Room is not Found");
         }

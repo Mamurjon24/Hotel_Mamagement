@@ -27,12 +27,17 @@ public class EmployerRepository {
     }
 
     public EmployerEntity getEmployerByPhone(String phone) {
-        Session session = sessionFactory.openSession();
-        Query<EmployerEntity> query = session.createQuery(" FROM EmployerEntity as e where phone =:phone", EmployerEntity.class);
-        query.setParameter("phone", phone);
-        EmployerEntity employer = query.getSingleResult();
-        session.close();
-        return employer;
+        try{
+            Session session = sessionFactory.openSession();
+            Query<EmployerEntity> query = session.createQuery(" FROM EmployerEntity as e where phone =:phone");
+            query.setParameter("phone", phone);
+            EmployerEntity employer = query.getSingleResult();
+            session.close();
+            return employer;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public List<EmployerEntity> employerList() {
@@ -44,7 +49,7 @@ public class EmployerRepository {
         return list;
     }
 
-    public EmployerEntity getById(Integer employerId) {
+    public EmployerEntity getEmployerById(Integer employerId) {
         Session session = sessionFactory.openSession();
         EmployerEntity employer = session.find(EmployerEntity.class, employerId);
         session.close();
