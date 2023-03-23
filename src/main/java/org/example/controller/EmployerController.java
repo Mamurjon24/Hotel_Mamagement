@@ -26,6 +26,25 @@ public class EmployerController {
     private GuestService guestService;
     @Autowired
     private BookingService bookingService;
+    @Autowired
+    private OutComeService outComeService;
+    @Autowired
+    private  CleaningRoomService cleaningRoomService;
+    @Autowired
+    private ComplainService complainService;
+    String mainMenu = """
+            0. -> Exit
+            1. -> Room
+            2. -> Convenient (qulayliklar)               
+            3. -> Employee Type               
+            4. -> Employee              
+            5. -> Guest               
+            6. -> Booking                                                    
+            7. -> OutCome                                                    
+            8. -> Cleaning Room                                                    
+            9. -> Complains 
+            10.-> Employer Work Table                                                   
+            """;
 
     public void manu() {
         while (true) {
@@ -391,11 +410,11 @@ public class EmployerController {
         Integer howLong = intScanner.nextInt();
         System.out.print("Enter Prise : ");
         Double prise = intScanner.nextDouble();
-        bookingService.addBooking(guestId,roomId,beginDate,howLong,prise);
+        bookingService.addBooking(guestId, roomId, beginDate, howLong, prise);
     }
 
     private void bookingList() {
-
+        bookingService.getGuestList();
     }
 
     private void listByRoom() {
@@ -406,29 +425,127 @@ public class EmployerController {
 
     }
 
-    String mainMenu = """
+    String outComeManu = """
             0. -> Exit
-            1. -> Room
-            2. -> Convenient (qulayliklar)               
-            3. -> Employee Type               
-            4. -> Employee              
-            5. -> Guest               
-            6. -> Booking                                                    
-            7. -> OutCome                                                    
-            8. -> Cleaning Room                                                    
-            9. -> Complains 
-            10.-> Employer Work Table                                                   
-            """;
+            1. -> Add OutCome
+            2. -> List
+                         """;
 
     private void outCome() {
-
+        while (true) {
+            System.out.println(employerManu);
+            switch (intScanner.nextInt()) {
+                case 0 -> {
+                    return;
+                }
+                case 1 -> {
+                    addOutCome();
+                }
+                case 2 -> {
+                    outComeList();
+                }
+            }
+        }
     }
+
+    private void addOutCome() {
+        System.out.print("Enter Out Come : ");
+        String outCome = strScanner.nextLine();
+        System.out.print("Enter Out Come Amount :");
+        Double amount = intScanner.nextDouble();
+        System.out.println("Enter Out Come Pay Date yyyy-MM-dd");
+        String payDay = strScanner.nextLine();
+        outComeService.addOutCome(outCome,amount,payDay);
+    }
+
+    private void outComeList() {
+        outComeService.getOutComeList();
+    }
+
+
+    String cleaningRoomManu = """
+            0. -> Exit
+            1. -> Add Cleaning Room
+            2. -> List
+            3. -> Delete Cleaning Room
+            """;
 
     private void cleaningRoom() {
+        while (true) {
+            System.out.println(employerManu);
+            switch (intScanner.nextInt()) {
+                case 0 -> {
+                    return;
+                }
+                case 1 -> {
+                    addCleaningRoom();
+                }
+                case 2 -> {
+                    cleaningRoomList();
+                }
+                case 3 -> {
+                    deleteCleaningRoom();
+                }
+            }
+        }
+    }
+
+    private void addCleaningRoom() {
+        System.out.print("Enter Room Id : ");
+        Integer roomId = intScanner.nextInt();
+        System.out.print("Enter Out Employer Id :");
+        Integer employerId = intScanner.nextInt();
+        System.out.println("Enter Cleaning Time yyyy-MM-dd: ");
+        String time = strScanner.nextLine();
+        cleaningRoomService.addCleaning(roomId,employerId,time);
+    }
+
+    private void cleaningRoomList() {
+        cleaningRoomService.getCleanedRoomList();
+    }
+
+    private void deleteCleaningRoom() {
+        System.out.print("Enter Id : ");
+        Integer cleaningRoomId = intScanner.nextInt();
+        cleaningRoomService.deleteCleaningRoom(cleaningRoomId);
+    }
+
+    String complainsManu = """
+            0. -> Exit
+            1. -> Add Complains
+            2. -> List
+            3. -> Delete Complains
+            """;
+
+    private void complains() {
+        while (true) {
+            System.out.println(employerManu);
+            switch (intScanner.nextInt()) {
+                case 0 -> {
+                    return;
+                }
+                case 1 -> {
+                    addComplains();
+                }
+                case 2 -> {
+                    complainsRoomList();
+                }
+                case 3 -> {
+                    deleteComplains();
+                }
+            }
+        }
+    }
+
+    private void addComplains() {
 
     }
 
-    private void complains() {
+    private void complainsRoomList() {
+
+    }
+
+    private void deleteComplains() {
 
     }
 

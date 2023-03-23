@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class BookingService {
@@ -21,7 +22,7 @@ public class BookingService {
     private GuestRepository guestRepository;
 
     public void addBooking(Integer guestId, Integer roomId, String beginDate, Integer howLong, Double prise) {
-        BookingEntity booking = new BookingEntity();
+       BookingEntity booking = new BookingEntity();
         RoomEntity room = roomRepository.getRoomById(roomId);
         if (room == null){
             System.out.println("Room is not Found :)");
@@ -35,6 +36,19 @@ public class BookingService {
         }
         booking.setGuest(guest);
         booking.setStartFromDay(LocalDate.parse(beginDate));
-        LocalDate endDate = beginDate.
+        LocalDate today = LocalDate.parse(beginDate);
+        LocalDate endDate = today.plusDays(howLong);
+        booking.setFinishDay(endDate);
+        booking.setAmount(prise);
+        bookingRepository.save(booking);
+    }
+
+    public void getGuestList() {
+        List<BookingEntity> bookingEntityList = bookingRepository.guestList();
+        if (bookingEntityList == null){
+            System.out.println("Not Active Room");
+            return;
+        }
+        bookingEntityList.forEach(System.out::println);
     }
 }
