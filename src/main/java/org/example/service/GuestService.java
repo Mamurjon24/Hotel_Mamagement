@@ -17,7 +17,7 @@ public class GuestService {
     @Autowired
     private GuestPasswordRepository guestPasswordRepository;
 
-    public void addGuest(String passwordSerial,String name, String surName, String phone) {
+    public void addGuest(String passwordSerial, String name, String surName, String phone) {
         GuestEntity guest = new GuestEntity();
         guest.setName(name);
         guest.setSurName(surName);
@@ -28,11 +28,6 @@ public class GuestService {
     }
 
     public void getguestList() {
-        List<GuestEntity> guestEntityList = guestRepository.guestList();
-        if (guestEntityList == null){
-            System.out.println("Not Active Room");
-            return;
-        }
-        guestEntityList.forEach(System.out::println);
+        guestRepository.guestList();
     }
 }

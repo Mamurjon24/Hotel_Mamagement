@@ -30,7 +30,7 @@ public class EmployerService {
         employer.setSurName(surName);
         employer.setStatus(Status.ACTIVE);
         Object employer1 = employerRepository.getEmployerByPhone(phone);
-        if (employer1 != null){
+        if (employer1 != null) {
             System.err.println("Wrong phone");
             return;
         }
@@ -51,17 +51,12 @@ public class EmployerService {
     }
 
     public void getEmployerList() {
-        List<EmployerEntity> employerList = employerRepository.employerList();
-        if (employerList == null){
-            System.out.println("Not Active Employer");
-            return;
-        }
-        employerList.forEach(System.out::println);
+        employerRepository.employerList();
     }
 
     public void changeStatus(Integer employerId) {
         EmployerEntity employer = employerRepository.getEmployerById(employerId);
-        if (employer == null){
+        if (employer == null) {
             System.out.println("Room is not Found");
         }
         employerRepository.changeStatus(employer.getId());

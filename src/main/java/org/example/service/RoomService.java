@@ -18,7 +18,7 @@ public class RoomService {
     public void addRoom(Integer number, Integer floor, String typeofRoom, Double price, Float area) {
         String upTypeRoom = typeofRoom.toUpperCase();
         if (upTypeRoom.equals(RoomType.DOUBLE_ROOM) || upTypeRoom.equals(RoomType.FAMILY_ROOM) || upTypeRoom.equals(RoomType.LUXURY_ROOM)
-                || upTypeRoom.equals(RoomType.ORDENARY_ROOM) || upTypeRoom.equals(RoomType.PRESIDENTIAL_ROOM) ){
+                || upTypeRoom.equals(RoomType.ORDENARY_ROOM) || upTypeRoom.equals(RoomType.PRESIDENTIAL_ROOM)) {
             System.out.println("Type Is not tog'ri");
             return;
         }
@@ -34,30 +34,25 @@ public class RoomService {
     }
 
     public void roomList() {
-        List<RoomEntity> roomEntityList = roomRepository.roomList();
-        if (roomEntityList == null){
-            System.out.println("Not Active Room");
-            return;
-        }
-        roomEntityList.forEach(System.out::println);
+        roomRepository.roomList();
     }
 
     public void changeStatus(Integer id) {
         RoomEntity room = roomRepository.getRoomById(id);
-        if (room == null){
+        if (room == null) {
             System.out.println("Room is not Found");
         }
-      roomRepository.changeStatus(room.getId());
+        roomRepository.changeStatus(room.getId());
     }
 
     public void updateRoom(Integer roomId, Integer number, Integer floor, String typeofRoom, Double price, Float area) {
         RoomEntity room1 = roomRepository.getRoomById(roomId);
-        if (room1 == null){
+        if (room1 == null) {
             System.out.println("Room is not Found");
         }
         String upTypeRoom = typeofRoom.toUpperCase();
         if (upTypeRoom.equals(RoomType.DOUBLE_ROOM) || upTypeRoom.equals(RoomType.FAMILY_ROOM) || upTypeRoom.equals(RoomType.LUXURY_ROOM)
-                || upTypeRoom.equals(RoomType.ORDENARY_ROOM) || upTypeRoom.equals(RoomType.PRESIDENTIAL_ROOM) ){
+                || upTypeRoom.equals(RoomType.ORDENARY_ROOM) || upTypeRoom.equals(RoomType.PRESIDENTIAL_ROOM)) {
             System.out.println("Type Is not tog'ri");
             return;
         }
@@ -74,7 +69,7 @@ public class RoomService {
 
     public void findRoom(Integer roomId) {
         RoomEntity room = roomRepository.getRoomById(roomId);
-        if (room == null){
+        if (room == null) {
             System.out.println("Room is not Found");
         }
         System.out.println(room);

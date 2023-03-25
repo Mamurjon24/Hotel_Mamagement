@@ -31,13 +31,18 @@ public class RoomRepository {
         return room;
     }
 
-    public List<RoomEntity> roomList() {
-        Session session = sessionFactory.openSession();
-        Query<RoomEntity> query = session.createQuery("FROM RoomEntity AS r where status=:status");
-        query.setParameter("status", Status.ACTIVE);
-        List<RoomEntity> list = query.getResultList();
-        session.close();
-        return list;
+    public void roomList() {
+        try {
+            Session session = sessionFactory.openSession();
+            Query<RoomEntity> query = session.createQuery("FROM RoomEntity AS r where status=:status");
+            query.setParameter("status", Status.ACTIVE);
+            List<RoomEntity> list = query.getResultList();
+            list.forEach(System.out::println);
+            session.close();
+        }catch (Exception e){
+            System.out.println("Not Active Room");
+            return;
+        }
     }
 
     public void changeStatus(Integer id) {

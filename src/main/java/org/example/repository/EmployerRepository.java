@@ -5,6 +5,7 @@ import org.example.entity.EmployerEntity;
 import org.example.entity.EmployerTypeEntity;
 import org.example.entity.RoomEntity;
 import org.example.enums.Status;
+import org.example.mapper.EmployerTypeMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,6 +19,7 @@ import java.util.List;
 public class EmployerRepository {
     @Autowired
     private SessionFactory sessionFactory;
+
     public void save(EmployerEntity entity) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -27,26 +29,31 @@ public class EmployerRepository {
     }
 
     public EmployerEntity getEmployerByPhone(String phone) {
-        try{
+        try {
             Session session = sessionFactory.openSession();
             Query<EmployerEntity> query = session.createQuery(" FROM EmployerEntity as e where phone =:phone");
             query.setParameter("phone", phone);
-            EmployerEntity employer = query.getSingleResult();
-            session.close();
-            return employer;
-        }catch (Exception e){
+            List<EmployerEntity> employerEntities = query.getResultList();
+           // session.close();
+            return employerEntities.stream().findAny().get();
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<EmployerEntity> employerList() {
-        Session session = sessionFactory.openSession();
-        Query<EmployerEntity> query = session.createQuery("FROM EmployerEntity AS e where status=:status");
-        query.setParameter("status", Status.ACTIVE);
-        List<EmployerEntity> list = query.getResultList();
-        session.close();
-        return list;
+    public void employerList() {
+        try {
+            Session session = sessionFactory.openSession();
+            Query<EmployerEntity> query = session.createQuery("FROM EmployerEntity AS e where status=:status");
+            query.setParameter("status", Status.ACTIVE);
+            List<EmployerEntity> list = query.getResultList();
+            list.forEach(System.out::println);
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Not Active Employer");
+            return;
+        }
     }
 
     public EmployerEntity getEmployerById(Integer employerId) {
@@ -66,5 +73,14 @@ public class EmployerRepository {
         tx.commit();
         session.close();
         System.out.println("Rows affected: " + result);
+    }
+
+    public String getEmployerRole() {
+        Session session = sessionFactory.openSession();
+        Query<EmployerTypeMapper> query = session.createQuery("SELECT  new org.example.mapper.EmployerTypeMapper(t.type)" +
+                "FROM EmployerEntity AS e INNER JOIN e.employerType AS t",EmployerTypeMapper.class);
+        String result = query.getQueryString();
+        session.close();
+        return result;
     }
 }

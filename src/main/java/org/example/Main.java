@@ -15,7 +15,5 @@ public class Main {
         AuthController authController = (AuthController) applicationContext.getBean("authController");
         authController.start();
 
-
-
     }
 }

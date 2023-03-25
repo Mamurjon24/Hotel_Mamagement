@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class BookingService {
@@ -44,11 +43,14 @@ public class BookingService {
     }
 
     public void getGuestList() {
-        List<BookingEntity> bookingEntityList = bookingRepository.guestList();
-        if (bookingEntityList == null){
-            System.out.println("Not Active Room");
-            return;
-        }
-        bookingEntityList.forEach(System.out::println);
+        bookingRepository.guestList();
+    }
+
+    public void getBookingListByRoomId(Integer roomId) {
+        bookingRepository.getBookingListByRoomId(roomId);
+    }
+
+    public void getBookingListByGuestId(Integer guestId) {
+        bookingRepository.getBookingListByGuestId(guestId);
     }
 }

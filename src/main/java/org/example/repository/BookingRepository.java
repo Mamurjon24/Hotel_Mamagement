@@ -1,8 +1,6 @@
 package org.example.repository;
 
 import org.example.entity.BookingEntity;
-import org.example.entity.GuestEntity;
-import org.example.entity.RoomEntity;
 import org.example.enums.Status;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,6 +15,7 @@ import java.util.List;
 public class BookingRepository {
     @Autowired
     private SessionFactory sessionFactory;
+
     public void save(BookingEntity entity) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -25,14 +24,42 @@ public class BookingRepository {
         session.close();
     }
 
-    public List<BookingEntity> guestList() {
-        Session session = sessionFactory.openSession();
-        Query<BookingEntity> query = session.createQuery("FROM BookingEntity");
-        List<BookingEntity> list = query.getResultList();
+    public void guestList() {
+        try {
+            Session session = sessionFactory.openSession();
+            Query<BookingEntity> query = session.createQuery("FROM BookingEntity");
+            List<BookingEntity> list = query.getResultList();
+            list.forEach(System.out::println);
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Not Active Room");
+            return;
+        }
+    }
 
+    public void getBookingListByRoomId(Integer roomId) {
+        try {
+            Session session = sessionFactory.openSession();
+            Query<BookingEntity> query = session.createQuery("FROM BookingEntity AS b WHERE b.room.id =:roomId");
+            query.setParameter("roomId", roomId);
+            List<BookingEntity> list = query.getResultList();
+            list.forEach(System.out::println);
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Not Active Room");
+        }
+    }
 
-
-        session.close();
-        return list;
+    public void getBookingListByGuestId(Integer guestId) {
+        try {
+            Session session = sessionFactory.openSession();
+            Query<BookingEntity> query = session.createQuery("FROM BookingEntity AS b WHERE b.guest.id =:guestId");
+            query.setParameter("guestId", guestId);
+            List<BookingEntity> list = query.getResultList();
+            list.forEach(System.out::println);
+            session.close();
+        } catch (Exception e) {
+            System.out.println("Not Active Room");
+        }
     }
 }

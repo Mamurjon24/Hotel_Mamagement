@@ -418,11 +418,15 @@ public class EmployerController {
     }
 
     private void listByRoom() {
-
+        System.out.print("Enter Room Id : ");
+        Integer roomId = intScanner.nextInt();
+        bookingService.getBookingListByRoomId(roomId);
     }
 
     private void listByGuest() {
-
+        System.out.print("Enter Guest Id : ");
+        Integer guestId = intScanner.nextInt();
+        bookingService.getBookingListByGuestId(guestId);
     }
 
     String outComeManu = """
@@ -513,13 +517,13 @@ public class EmployerController {
     String complainsManu = """
             0. -> Exit
             1. -> Add Complains
-            2. -> List
-            3. -> Delete Complains
+            2. -> List 
+            3. -> Change Complains Status           
             """;
 
     private void complains() {
         while (true) {
-            System.out.println(employerManu);
+            System.out.println(complainsManu);
             switch (intScanner.nextInt()) {
                 case 0 -> {
                     return;
@@ -528,26 +532,40 @@ public class EmployerController {
                     addComplains();
                 }
                 case 2 -> {
-                    complainsRoomList();
+                    complainsList();
                 }
                 case 3 -> {
-                    deleteComplains();
+                    changecomplainsStatus();
                 }
             }
         }
     }
 
     private void addComplains() {
-
+        System.out.print("Enter Guest Id : ");
+        Integer guestId = intScanner.nextInt();
+        System.out.print("Enter Employer Id :");
+        Integer employerId = intScanner.nextInt();
+        System.out.println("NEW, INVESTIGATED, ACTION_TAKEN, CANCELED");
+        System.out.print("Enter Complains Status : ");
+        String status = strScanner.nextLine();
+        System.out.print("Enter Reason : ");
+        String reason = strScanner.nextLine();
+        complainService.addcomplain(guestId,employerId,status,reason);
     }
 
-    private void complainsRoomList() {
-
+    private void complainsList() {
+        complainService.getComplainsList();
+    }
+    private void changecomplainsStatus() {
+        System.out.print("Enter Complain Id : ");
+        Integer complainId = intScanner.nextInt();
+        System.out.println("NEW, INVESTIGATED, ACTION_TAKEN, CANCELED");
+        System.out.print("Enter New Complains Status : ");
+        String status = strScanner.nextLine();
+        complainService.changeStatus(complainId,status);
     }
 
-    private void deleteComplains() {
-
-    }
 
     String employerWorkTableManu = """
             0. -> Exit

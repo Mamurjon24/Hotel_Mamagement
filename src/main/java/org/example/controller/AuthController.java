@@ -44,8 +44,8 @@ public class AuthController {
         authService.login(phone);
     }
     public void complain() {
-        System.out.print("Enter phone:");
-        String phone = strScanner.nextLine();
-        authService.complain(phone);
+        System.out.print("Enter Complain Id:");
+        Integer id = intScanner.nextInt();
+        authService.complain(id);
     }
 }
